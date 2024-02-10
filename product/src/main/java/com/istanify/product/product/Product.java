@@ -3,13 +3,16 @@ package com.istanify.product.product;
 
 import com.istanify.product.enumeration.BrandEnum;
 import com.istanify.product.enumeration.CategoryEnum;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "products")
 public class Product {
-    @MongoId(targetType = FieldType.STRING)
+    @MongoId(FieldType.OBJECT_ID)
     private String id;
     private String productName;
     private String productDescription;

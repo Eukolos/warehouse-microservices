@@ -1,5 +1,7 @@
 package com.istanify.product.product;
 
+import com.istanify.product.enumeration.BrandEnum;
+import com.istanify.product.enumeration.CategoryEnum;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Long id, Product product) {
+    public Product updateProduct(String id, Product product) {
         Product existingProduct = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
         existingProduct.setProductName(product.getProductName());
         existingProduct.setProductDescription(product.getProductDescription());
@@ -27,7 +29,7 @@ public class ProductService {
         return productRepository.save(existingProduct);
     }
 
-    public Product getProduct(Long id) {
+    public Product getProduct(String id) {
         return productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
     }
 
@@ -35,11 +37,11 @@ public class ProductService {
         return productRepository.findByProductName(name).orElseThrow(() -> new EntityNotFoundException("Product not found with name: " + name));
     }
 
-    public List<Product> getProductByCategory(String category) {
+    public List<Product> getProductByCategory(CategoryEnum category) {
         return productRepository.findByProductCategory(category).orElseThrow(() -> new EntityNotFoundException("Product not found with category: " + category));
     }
 
-    public List<Product> getProductByBrand(String brand) {
+    public List<Product> getProductByBrand(BrandEnum brand) {
         return productRepository.findByProductBrand(brand).orElseThrow(() -> new EntityNotFoundException("Product not found with brand: " + brand));
     }
 
@@ -47,7 +49,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(String id) {
         productRepository.deleteById(id);
     }
 }

@@ -17,7 +17,7 @@ public class Waybill {
     @ManyToOne( fetch = FetchType.EAGER)
     private Supplier supplier;
     private LocalDate arrivalDate;
-    @OneToMany(mappedBy = "waybill", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "waybill", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StockItem> stockItems;
 
     public Waybill() {

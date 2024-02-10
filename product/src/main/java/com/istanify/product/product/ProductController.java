@@ -1,5 +1,7 @@
 package com.istanify.product.product;
 
+import com.istanify.product.enumeration.BrandEnum;
+import com.istanify.product.enumeration.CategoryEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable Long id) {
+    public Product getProduct(@PathVariable String id) {
         return service.getProduct(id);
     }
     @GetMapping("/name/{name}")
@@ -34,21 +36,21 @@ public class ProductController {
         return service.getProductByName(name);
     }
     @GetMapping("/category/{category}")
-    public List<Product> getProductByCategory(@PathVariable String category) {
+    public List<Product> getProductByCategory(@PathVariable CategoryEnum category) {
         return service.getProductByCategory(category);
     }
     @GetMapping("/brand/{brand}")
-    public List<Product> getProductByBrand(@PathVariable String brand) {
+    public List<Product> getProductByBrand(@PathVariable BrandEnum brand) {
         return service.getProductByBrand(brand);
     }
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product) {
         return service.updateProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable Long id) {
+    public void deleteProduct(@PathVariable String id) {
         service.deleteProduct(id);
     }
 }

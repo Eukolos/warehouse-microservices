@@ -16,7 +16,7 @@ public interface ProductClient {
     public List<ProductDto> getProductList();
 
     @GetExchange("/{id}")
-    public ProductDto getProduct(@PathVariable Long id);
+    public ProductDto getProduct(@PathVariable String id);
 
     @GetExchange("/name/{name}")
     public List<ProductDto> getProductByName(@PathVariable String name);

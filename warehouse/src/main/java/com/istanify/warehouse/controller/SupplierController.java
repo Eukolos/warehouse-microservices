@@ -19,8 +19,8 @@ public class SupplierController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createSupplier(@RequestBody SupplierCreateRequest supplier) {
-        service.createSupplier(supplier);
+    public Supplier createSupplier(@RequestBody SupplierCreateRequest supplier) {
+        return service.createSupplier(supplier);
     }
 
     @GetMapping
