@@ -1,0 +1,60 @@
+### Create a new product
+
+POST http://localhost:8080/api/v1/products
+Content-Type: application/json
+
+{
+  "productName": "Product 2",
+  "productDescription": "Product 2 Description",
+  "productCategory": "TRANSMISSION",
+  "productBrand": "BMW",
+  "productModel": "RW-100"
+}
+
+### Get all products
+
+GET http://localhost:8080/api/v1/products
+
+### Get product by id
+
+GET http://localhost:8080/api/v1/products/{you have to find the product id from the above get requests}
+
+### Get product by name
+
+GET http://localhost:8080/api/v1/products/name/Product%202
+
+### Get product by category
+
+GET http://localhost:8080/api/v1/products/category/TRANSMISSION
+
+### Get product by brand
+
+GET http://localhost:8080/api/v1/products/brand/BMW
+
+### Update product
+
+PUT http://localhost:8080/api/v1/products/{you have to find the product id from the above get requests}
+Content-Type: application/json
+
+{
+  "productName": "Product 2",
+  "productDescription": "Product 2 Description",
+  "productCategory": "TRANSMISSION",
+  "productBrand": "BMW",
+  "productModel": "RW-100"
+}
+
+### Delete product
+
+DELETE http://localhost:8080/api/v1/products/{you have to find the product id from the above get requests}
+
+
+
+
+
+
+
+
+
+
+
