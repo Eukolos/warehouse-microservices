@@ -9,7 +9,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
 public class BeanConfig {
-    public static final String PRODUCT_SERVICE_URL = "http://product:8080";
+    public static final String PRODUCT_SERVICE_URL = "http://localhost:8080";
     public static final String PRODUCT_SERVICE_PATH = "/api/v1/products";
     @Bean
     ProductClient ProductClient() {

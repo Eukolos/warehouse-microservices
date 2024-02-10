@@ -1,5 +1,6 @@
 package com.istanify.warehouse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ public class StockItem {
     private LocalDate arrivalTime;
     private long quantity;
     private String shelfLocation;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Waybill waybill;
     private String productId;
