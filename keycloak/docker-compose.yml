@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: keycloak_db
+      POSTGRES_USER: my_admin
+      POSTGRES_PASSWORD: my_password
+    ports:
+      - "5432-5432"
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak_db
+      DB_SCHEMA: public
+      DB_USER: my_admin
+      DB_PASSWORD: my_password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

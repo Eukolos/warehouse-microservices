@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin-panel" />
+        <module name="product" />
+        <module name="eureka" />
+        <module name="accounting" />
+        <module name="warehouse" />
+        <module name="config" />
+        <module name="finance" />
+        <module name="gateway" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="accounting" options="-parameters" />
+      <module name="admin-panel" options="-parameters" />
+      <module name="config" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="finance" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="product" options="-parameters" />
+      <module name="warehouse" options="-parameters" />
+    </option>
+  </component>
+</project>
