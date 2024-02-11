@@ -5,6 +5,10 @@ services:
     image: docker.io/library/product:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
+  warehouse-service:
+    image: docker.io/library/warehouse:0.0.1-SNAPSHOT
+    ports:
+      - "9090:9090"
   postgres:
     image: postgres:12
     container_name: postgres

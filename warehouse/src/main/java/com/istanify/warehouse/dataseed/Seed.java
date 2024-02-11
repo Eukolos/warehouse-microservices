@@ -33,6 +33,9 @@ public class Seed implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (supplierRepository.count() > 0) {
+            return;
+        }
         List<ProductDto> products = productClient.getProductList();
         List<String> productIds = products.stream().map(ProductDto::id).toList();
         System.out.println(productIds);
@@ -63,17 +66,17 @@ public class Seed implements CommandLineRunner {
         Waybill waybill3 = waybillRepository.save(new Waybill("125", LocalDate.now(), supplier3, LocalDate.now(), List.of(stockItem5, stockItem6)));
         Waybill waybill4 = waybillRepository.save(new Waybill("126", LocalDate.now(), supplier4, LocalDate.now(), List.of(stockItem7, stockItem8)));
         Waybill waybill5 = waybillRepository.save(new Waybill("127", LocalDate.now(), supplier5, LocalDate.now(), List.of(stockItem9, stockItem10)));
-        stockItem1.setWaybill(waybill1);
-        stockItem2.setWaybill(waybill1);
-        stockItem3.setWaybill(waybill2);
-        stockItem4.setWaybill(waybill2);
-        stockItem5.setWaybill(waybill3);
-        stockItem6.setWaybill(waybill3);
-        stockItem7.setWaybill(waybill4);
-        stockItem8.setWaybill(waybill4);
-        stockItem9.setWaybill(waybill5);
-        stockItem10.setWaybill(waybill5);
-        stockItemRepository.saveAll(List.of(stockItem1, stockItem2, stockItem3, stockItem4, stockItem5, stockItem6, stockItem7, stockItem8, stockItem9, stockItem10));
+//        stockItem1.setWaybill(waybill1);
+//        stockItem2.setWaybill(waybill1);
+//        stockItem3.setWaybill(waybill2);
+//        stockItem4.setWaybill(waybill2);
+//        stockItem5.setWaybill(waybill3);
+//        stockItem6.setWaybill(waybill3);
+//        stockItem7.setWaybill(waybill4);
+//        stockItem8.setWaybill(waybill4);
+//        stockItem9.setWaybill(waybill5);
+//        stockItem10.setWaybill(waybill5);
+//        stockItemRepository.saveAll(List.of(stockItem1, stockItem2, stockItem3, stockItem4, stockItem5, stockItem6, stockItem7, stockItem8, stockItem9, stockItem10));
         System.out.println(waybill1.getWaybillNumber() + " " + waybill2.getWaybillNumber() + " " + waybill3.getWaybillNumber() + " " + waybill4.getWaybillNumber() + " " + waybill5.getWaybillNumber());
     }
 }
