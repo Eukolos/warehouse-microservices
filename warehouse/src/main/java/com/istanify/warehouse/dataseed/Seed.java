@@ -18,6 +18,7 @@ import java.util.Random;
 
 @Component
 public class Seed implements CommandLineRunner {
+
     private final StockItemRepository stockItemRepository;
     private final SupplierRepository supplierRepository;
     private final WaybillRepository waybillRepository;
