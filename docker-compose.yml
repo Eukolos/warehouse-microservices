@@ -39,7 +39,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin
     ports:
       - "27017:27017"
-
   mongo-express:
     image: mongo-express
     restart: always
@@ -54,6 +53,13 @@ services:
       ME_CONFIG_MONGODB_URL: mongo://admin:admin@mongo:27017/
     depends_on:
       - mongo
+  couchbase:
+    image: couchbase/server:community-aarch64
+    ports:
+      - 8091:8091
+      - 8092:8092
+      - 8093:8093
+      - 11210:11210
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
     ports:

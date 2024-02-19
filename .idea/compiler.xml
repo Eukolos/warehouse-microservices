@@ -12,6 +12,7 @@
         <module name="eureka" />
         <module name="accounting" />
         <module name="warehouse" />
+        <module name="stock" />
         <module name="config" />
         <module name="finance" />
         <module name="gateway" />
@@ -27,6 +28,7 @@
       <module name="finance" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="product" options="-parameters" />
+      <module name="stock" options="-parameters" />
       <module name="warehouse" options="-parameters" />
     </option>
   </component>

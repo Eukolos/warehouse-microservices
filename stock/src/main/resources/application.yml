@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: stock-service
+couchbase:
+  stock-service:
+    config:
+      bootstrapHosts: localhost
+      stockBucket: stock
+      stockBucketUsername: admin
+      stockBucketPassword: 123456
+kafka:
+  host: localhost:9092
+  topics:
+    waybill-record:
+      topicName: ${spring.application.name}.waybill-record.0
+      partitionCount: 1
+      replicationFactor: 1
+      retentionInMs: 604800000
+server:
+  port: 5050
