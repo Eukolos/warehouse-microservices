@@ -54,7 +54,7 @@ services:
     depends_on:
       - mongo
   couchbase:
-    image: couchbase/server:community-aarch64
+    image: couchbase:7.2.3
     ports:
       - 8091:8091
       - 8092:8092

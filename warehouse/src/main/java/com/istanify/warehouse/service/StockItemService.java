@@ -1,6 +1,8 @@
 package com.istanify.warehouse.service;
 
 import com.istanify.warehouse.client.ProductClient;
+import com.istanify.warehouse.configuration.kafka.producer.KafkaProducer;
+import com.istanify.warehouse.configuration.kafka.properties.WaybillRecordTopicProperties;
 import com.istanify.warehouse.dto.ProductDto;
 import com.istanify.warehouse.dto.StockItemInfoDto;
 import com.istanify.warehouse.model.StockItem;
@@ -8,7 +10,6 @@ import com.istanify.warehouse.repository.StockItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class StockItemService {
     private final StockItemRepository repository;
     private final ProductClient productClient;
+
 
     public StockItemService(StockItemRepository repository, ProductClient productClient) {
         this.repository = repository;

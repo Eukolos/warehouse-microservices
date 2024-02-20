@@ -7,6 +7,7 @@ import org.springframework.data.couchbase.core.mapping.Field;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.UNIQUE;
 
@@ -14,7 +15,7 @@ import static org.springframework.data.couchbase.core.mapping.id.GenerationStrat
 public class Stock {
     @Id
     @GeneratedValue(strategy = UNIQUE)
-    private Long id;
+    private String id;
     @Field
     private String itemId;
     @Field
@@ -35,11 +36,11 @@ public class Stock {
         this.waybillIds = waybillIds;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

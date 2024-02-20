@@ -15,14 +15,14 @@ public class StockService {
     }
 
     public void save(Stock stock) {
-        Optional<Stock> existingStock = repository.findByItemId(stock.getItemId());
-        if (existingStock.isPresent()) {
-            Stock stockToUpdate = existingStock.get();
-            stockToUpdate.setQuantity(stockToUpdate.getQuantity() + stock.getQuantity());
-            stockToUpdate.getWaybillIds().add(stock.getWaybillIds().get(0));
-            repository.save(stockToUpdate);
-            return;
-        }
-        repository.save(stock);
+        Optional<Stock> existingStock = repository.findStockByItemId(stock.getItemId());
+//        if (existingStock.isPresent()) {
+//            Stock stockToUpdate = existingStock.get();
+//            stockToUpdate.setQuantity(stockToUpdate.getQuantity() + stock.getQuantity());
+//            stockToUpdate.getWaybillIds().add(stock.getWaybillIds().get(0));
+//            repository.save(stockToUpdate);
+//            return;
+//        }
+//        repository.save(stock);
     }
 }

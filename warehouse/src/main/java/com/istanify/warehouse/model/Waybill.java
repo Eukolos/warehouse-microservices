@@ -11,7 +11,6 @@ public class Waybill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NaturalId
     private String waybillNumber;
     private LocalDate waybillDate;
     @ManyToOne( fetch = FetchType.EAGER)

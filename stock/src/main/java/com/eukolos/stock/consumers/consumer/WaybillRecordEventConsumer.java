@@ -3,11 +3,18 @@ package com.eukolos.stock.consumers.consumer;
 import com.eukolos.stock.consumers.model.WaybillRecordEvent;
 import com.eukolos.stock.model.Stock;
 import com.eukolos.stock.service.StockService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+
 
 @Component
 public class WaybillRecordEventConsumer {
@@ -21,20 +28,23 @@ public class WaybillRecordEventConsumer {
 
     @KafkaListener(topics = "${kafka.topics.waybill-record.topic}",
             groupId = "${kafka.topics.waybill-record.consumerGroup}",
-            containerFactory = "concurrentKafkaListenerContainerFactory"
+            containerFactory = "kafkaListenerContainerFactory"
     )
-    public void consumeCreatedUserEvent(@Payload WaybillRecordEvent eventData,
-                                        @Headers ConsumerRecord<String, Object> consumerRecord) {
-        log.info("UserCreatedEventConsumer.consumeApprovalRequestResultedEvent consumed EVENT :{} " +
-                        "from partition : {} " +
-                        "with offset : {} " +
-                        "thread : {} " +
-                        "for message key: {}",
-                eventData, consumerRecord.partition(), consumerRecord.offset(), Thread.currentThread().getName(), consumerRecord.key());
+    public void consumeWaybillRecordEvent(@Payload String eventData,
+                                          @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws JsonProcessingException {
+        log.info(eventData.toString()+"---------------------------------------------------------------------------");
+        log.info("WaybillRecordEventConsumer.consumeApprovalRequestResultedEvent consumed EVENT :{} " +
+                        "from topic : {} " +
+                        "thread : {} ",
+                eventData, topic, Thread.currentThread().getName());
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Stock entity = Stock.EventToNotificationEntity(eventData);
+        WaybillRecordEvent waybillRecordEvent = objectMapper.readValue(eventData, WaybillRecordEvent.class);
 
-        service.save(entity);
+        log.warn(waybillRecordEvent.toString());
+        Stock entity = Stock.EventToNotificationEntity(waybillRecordEvent);
+
+//       service.save(entity);
 
     }
 

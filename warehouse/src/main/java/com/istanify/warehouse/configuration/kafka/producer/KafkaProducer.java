@@ -8,6 +8,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 
 @Component
@@ -21,26 +22,14 @@ public class KafkaProducer {
     }
 
     public void sendMessage(GenericMessage message) {
-        final ListenableFuture<? extends SendResult<String, ?>> listenableResult = (ListenableFuture<? extends SendResult<String, ?>>) kafkaTemplate.send(message);
+        CompletableFuture<SendResult<String, Object>> listenableResult = kafkaTemplate.send(message);
 
-        listenableResult.addCallback(new ListenableFutureCallback<SendResult<String, ?>>() {
-            @Override
-            public void onSuccess(SendResult<String, ?> result) {
-                if (Objects.isNull(result)) {
-                    log.info("Empty result on success for message {}", message);
-                    return;
+        listenableResult.acceptEither(
+                listenableResult,
+                (result) -> {
+                    log.info("Message sent to topic: " + result.getRecordMetadata().topic());
                 }
-                log.info("Message :{} published, topic : {}, partition : {} and offset : {}", message.getPayload(),
-                        result.getRecordMetadata().topic(),
-                        result.getRecordMetadata().partition(),
-                        result.getRecordMetadata().offset());
-            }
-
-            @Override
-            public void onFailure(Throwable ex) {
-                log.error("Unable to deliver message to kafka", ex);
-            }
-        });
-
+        );
     }
+
 }
