@@ -12,9 +12,7 @@ kafka:
   host: localhost:9092
   topics:
     waybill-record:
-      topicName: ${spring.application.name}.waybill-record.0
-      partitionCount: 1
-      replicationFactor: 1
-      retentionInMs: 604800000
+      topic: warehouse.waybill-record.0
+      consumerGroup: ${spring.application.name}-waybill-record-consumer
 server:
   port: 5050
