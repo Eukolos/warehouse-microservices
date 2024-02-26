@@ -1,27 +1,24 @@
 package com.eukolos.stock.model;
 
 import com.eukolos.stock.consumers.model.WaybillRecordEvent;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.couchbase.core.mapping.Document;
-import org.springframework.data.couchbase.core.mapping.Field;
-import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import static org.springframework.data.couchbase.core.mapping.id.GenerationStrategy.UNIQUE;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Document
+
+@Entity
 public class Stock {
     @Id
-    @GeneratedValue(strategy = UNIQUE)
-    private String id;
-    @Field
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
     private String itemId;
-    @Field
     private Long quantity;
-    @Field
-    private List<String> waybillIds;
+
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    private List<String> waybillIds=new ArrayList<>();
 
     public static Stock EventToNotificationEntity(WaybillRecordEvent event) {
         return new Stock(event.getItemId(), event.getQuantity(), List.of(event.getWaybillId()));
@@ -36,11 +33,11 @@ public class Stock {
         this.waybillIds = waybillIds;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

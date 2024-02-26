@@ -1,13 +1,24 @@
 spring:
   application:
     name: stock-service
-couchbase:
-  stock-service:
-    config:
-      bootstrapHosts: localhost
-      stockBucket: stock
-      stockBucketUsername: admin
-      stockBucketPassword: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          time_zone: UTC
+  datasource:
+    url: jdbc:mysql://localhost:3306/stock
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
 kafka:
   host: localhost:9092
   topics:

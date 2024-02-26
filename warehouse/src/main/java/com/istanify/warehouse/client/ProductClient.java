@@ -1,35 +1,35 @@
 package com.istanify.warehouse.client;
 
 import com.istanify.warehouse.dto.ProductDto;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.*;
 
 import java.util.List;
-
+@FeignClient(name = "product-service",url = "http://localhost:8080", path = "/api/v1/products")
 public interface ProductClient {
 
 
-    @PostExchange
+    @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto product);
 
-    @GetExchange
+    @GetMapping
     public List<ProductDto> getProductList();
 
-    @GetExchange("/{id}")
+    @GetMapping("/{id}")
     public ProductDto getProduct(@PathVariable String id);
 
-    @GetExchange("/name/{name}")
+    @GetMapping("/name/{name}")
     public List<ProductDto> getProductByName(@PathVariable String name);
 
-    @GetExchange("/category/{category}")
+    @GetMapping("/category/{category}")
     public List<ProductDto> getProductByCategory(@PathVariable String category);
 
-    @GetExchange("/brand/{brand}")
+    @GetMapping("/brand/{brand}")
     public List<ProductDto> getProductByBrand(@PathVariable String brand);
 
-    @PutExchange("/{id}")
+    @PutMapping("/{id}")
     public ProductDto updateProduct(@PathVariable Long id, @RequestBody ProductDto product);
 
-    @DeleteExchange("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id);
 }

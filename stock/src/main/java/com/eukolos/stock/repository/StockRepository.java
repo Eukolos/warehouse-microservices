@@ -1,12 +1,9 @@
 package com.eukolos.stock.repository;
 
 import com.eukolos.stock.model.Stock;
-import org.springframework.data.couchbase.repository.CouchbaseRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface StockRepository extends CrudRepository<Stock, String> {
-    Optional<Stock> findStockByItemId(String itemId);
+public interface StockRepository extends JpaRepository<Stock, String> {
+    Optional<Stock> findFirstStockByItemId(String itemId);
 }

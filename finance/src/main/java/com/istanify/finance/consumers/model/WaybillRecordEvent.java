@@ -1,4 +1,4 @@
-package com.istanify.warehouse.model;
+package com.istanify.finance.consumers.model;
 
 
 public class WaybillRecordEvent {
@@ -6,14 +6,6 @@ public class WaybillRecordEvent {
     private Long quantity;
     private String waybillId;
 
-    public WaybillRecordEvent() {
-    }
-
-    public WaybillRecordEvent(String itemId, Long quantity, String waybillId) {
-        this.itemId = itemId;
-        this.quantity = quantity;
-        this.waybillId = waybillId;
-    }
 
     public String getItemId() {
         return itemId;
@@ -37,5 +29,23 @@ public class WaybillRecordEvent {
 
     public void setWaybillId(String waybillId) {
         this.waybillId = waybillId;
+    }
+
+    public WaybillRecordEvent(String itemId, Long quantity, String waybillId) {
+        this.itemId = itemId;
+        this.quantity = quantity;
+        this.waybillId = waybillId;
+    }
+
+    public WaybillRecordEvent() {
+    }
+
+    @Override
+    public String toString() {
+        return "WaybillRecordEvent{" +
+                "itemId='" + itemId + '\'' +
+                ", quantity=" + quantity +
+                ", waybillId='" + waybillId + '\'' +
+                '}';
     }
 }

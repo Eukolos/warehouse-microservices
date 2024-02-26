@@ -5,10 +5,6 @@ services:
     image: docker.io/library/product:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
-  warehouse-service:
-    image: docker.io/library/warehouse:0.0.1-SNAPSHOT
-    ports:
-      - "9090:9090"
   postgres:
     image: postgres:12
     container_name: postgres
@@ -53,13 +49,21 @@ services:
       ME_CONFIG_MONGODB_URL: mongo://admin:admin@mongo:27017/
     depends_on:
       - mongo
-  couchbase:
-    image: couchbase:7.2.3
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stock
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     ports:
-      - 8091:8091
-      - 8092:8092
-      - 8093:8093
-      - 11210:11210
+      - "3306:3306"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8082:8080"
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
     ports:
@@ -84,6 +88,7 @@ services:
       - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+
     depends_on:
       - zookeeper
   kafka-ui:

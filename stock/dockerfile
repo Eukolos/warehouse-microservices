@@ -1,0 +1,12 @@
+FROM amazoncorretto:17 as builder
+
+WORKDIR /app
+
+# Copy the packaged JAR file into the container at /app
+COPY target/stock-0.0.1-SNAPSHOT.jar /app/stock.jar
+
+# Expose the port that your Spring Boot application runs on (default is 8080)
+EXPOSE 9393
+
+# Specify the command to run your application when the container starts
+CMD ["java", "-jar", "stock.jar"]
