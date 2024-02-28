@@ -3,13 +3,10 @@ package com.istanify.warehouse.service;
 import com.istanify.warehouse.configuration.kafka.producer.KafkaProducer;
 import com.istanify.warehouse.configuration.kafka.properties.WaybillInvoiceTopicProperties;
 import com.istanify.warehouse.configuration.kafka.properties.WaybillRecordTopicProperties;
-import com.istanify.warehouse.dto.StockItemInfoDto;
-import com.istanify.warehouse.dto.WaybillInfoDto;
-import com.istanify.warehouse.dto.WaybillRequest;
+import com.istanify.warehouse.dto.*;
 import com.istanify.warehouse.model.StockItem;
 import com.istanify.warehouse.model.Supplier;
 import com.istanify.warehouse.model.Waybill;
-import com.istanify.warehouse.dto.WaybillRecordEvent;
 import com.istanify.warehouse.repository.WaybillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.messaging.support.GenericMessage;
@@ -31,6 +28,7 @@ public class WaybillService {
     private final KafkaProducer kafkaProducer;
     private final WaybillRecordTopicProperties waybillRecordTopicProperties;
     private final WaybillInvoiceTopicProperties waybillInvoiceTopicProperties;
+
 
 
     public WaybillService(WaybillRepository repository, SupplierService supplierService, StockItemService stockItemService, KafkaProducer kafkaProducer, WaybillRecordTopicProperties waybillRecordTopicProperties, WaybillInvoiceTopicProperties waybillInvoiceTopicProperties) {
@@ -86,9 +84,6 @@ public class WaybillService {
             headers.put(TOPIC, waybillRecordTopicProperties.getTopicName());
             headers.put(KEY, UUID.randomUUID().toString());
             kafkaProducer.sendMessage(new GenericMessage<>(waybillRecordEvent, headers));
-
-
-
         }
     }
 
