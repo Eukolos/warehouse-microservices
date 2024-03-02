@@ -1,0 +1,37 @@
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    instance-id: '${spring.application.name}:${random.value}  '
+    prefer-ip-address: true
+server:
+  port: 0
+spring:
+  data:
+    mongodb:
+      database: product
+      host: mongo
+      password: admin
+      port: 27017
+      uri: mongodb://admin:admin@localhost:27017/?authSource=admin
+      username: admin
+  application:
+    name: product-service
+  profiles:
+    active: default
+  boot:
+    admin:
+      client:
+        url: http://localhost:9889
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+
