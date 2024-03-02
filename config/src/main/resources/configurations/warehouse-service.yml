@@ -19,7 +19,7 @@ kafka:
             retentionInMs: 604800000
             topicName: ${spring.application.name}.waybill-record.0
 server:
-    port: 0
+    port: 8015
 spring:
     application:
         name: warehouse-service
