@@ -14,6 +14,7 @@ spring:
 management:
     endpoints:
         web:
+            base-path: /actuator-${spring.application.name}
             exposure:
                 include: '*'
     endpoint:

@@ -3,7 +3,11 @@ spring:
     name: finance-service
   profiles:
     active: default
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:9595}/auth/realms/warehouse_realm
   jpa:
     hibernate:
       ddl-auto: create
@@ -24,6 +28,7 @@ spring:
 management:
   endpoints:
     web:
+      base-path: /actuator-${spring.application.name}
       exposure:
         include: '*'
   endpoint:

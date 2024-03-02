@@ -1,0 +1,96 @@
+spring:
+  application:
+    name: gateway-service
+  config:
+    import: optional:configserver:http://localhost:9797
+
+
+#spring:
+#  application:
+#    name: gateway-service
+#  profiles:
+#    active: default
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:9889
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          lower-case-service-id: true
+#          enabled: true
+#      routes:
+#        - id: accounting-service
+#          uri: lb://accounting-service/api/transaction
+#          predicates:
+#            Path=/api/transaction/**
+#          filters:
+#            TokenRelay=
+#        - id: finance-service
+#          uri: lb://finance-service/invoice
+#          predicates:
+#            Path=/invoice/**
+#          filters:
+#            TokenRelay=
+#        - id: finance-service2
+#          uri: lb://finance-service/waybill-status
+#          predicates:
+#            Path=/waybill-status/**
+#          filters:
+#            TokenRelay=
+#        - id: product-service
+#          uri: http://localhost:8013/api/v1/products
+#          predicates:
+#            Path=/api/v1/products/**
+#          filters:
+#            TokenRelay=
+#        - id: warehouse-service
+#          uri: lb://warehouse-service/api/v1/suppliers
+#          predicates:
+#            Path=/api/v1/suppliers/**
+#          filters:
+#            TokenRelay=
+#        - id: warehouse-service2
+#          uri: lb://warehouse-service/api/v1/waybills
+#          predicates:
+#            Path=/api/v1/waybills/**
+#          filters:
+#            TokenRelay=
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          gateway:
+#            provider: my-provider
+#            client-id: warehouse_client
+#            client-secret: hcCx0mynBHTzdnd3nrrdO2yiKe5ruUId
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "http://localhost:8080/login/oauth2/code/{registrationId}"
+#            scope: openid, warehouse.read
+#        provider:
+#          my-provider:
+#            issuer-uri: http://localhost:9595/auth/realms/warehouse_realm
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+#  endpoint:
+#    health:
+#      show-details: always
+#    info:
+#      enabled: true
+##http://localhost:9595/auth/realms/warehouse_realm/:
+##  well-known/openid-configuration:
+#
+#
+#eureka:
+#  client:
+#    service-url:
+#      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+#  instance:
+#    instance-id: '${spring.application.name}:${random.value}  '
+#    prefer-ip-address: true
+#server:
+#  port: 8080
