@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: product-service
+  config:
+    import: optional:configserver:http://localhost:9797
+#  data:
+#    mongodb:
+#      database: product
+#      host: mongo
+#      password: admin
+#      port: 27017
+#      uri: mongodb://admin:admin@localhost:27017/?authSource=admin
+#      username: admin
+#  profiles:
+#    active: default
+#eureka:
+#  client:
+#    service-url:
+#      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+#  instance:
+#    instance-id: '${spring.application.name}:${random.value}  '
+#    prefer-ip-address: true
+#server:
+#  port: 0
+#

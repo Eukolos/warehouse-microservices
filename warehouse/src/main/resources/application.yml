@@ -1,0 +1,41 @@
+spring:
+    application:
+        name: warehouse-service
+    config:
+        import: optional:configserver:http://localhost:9797
+#
+#    datasource:
+#        driver-class-name: org.postgresql.Driver
+#        password: postgres
+#        url: jdbc:postgresql://localhost:5432/warehouse
+#        username: postgres
+#    jpa:
+#        hibernate:
+#            ddl-auto: update
+#        properties:
+#            hibernate:
+#                dialect: org.hibernate.dialect.PostgreSQLDialect
+#    profiles:
+#        active: default
+#eureka:
+#    client:
+#        service-url:
+#            default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+#    instance:
+#        instance-id: ${spring.application.name}:${random.value}
+#        prefer-ip-address: true
+#kafka:
+#    host: localhost:9092
+#    topics:
+#        waybill-invoice:
+#            partitionCount: 1
+#            replicationFactor: 1
+#            retentionInMs: 604800000
+#            topicName: ${spring.application.name}.waybill-invoice.0
+#        waybill-record:
+#            partitionCount: 1
+#            replicationFactor: 1
+#            retentionInMs: 604800000
+#            topicName: ${spring.application.name}.waybill-record.0
+#server:
+#    port: 0
