@@ -32,6 +32,8 @@ management:
   endpoint:
     health:
       show-details: always
+    env:
+      enabled: true
     info:
       enabled: true
 eureka:

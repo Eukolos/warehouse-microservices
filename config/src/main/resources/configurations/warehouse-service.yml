@@ -34,11 +34,11 @@ spring:
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
-    security:
-        oauth2:
-            resourceserver:
-                jwt:
-                    issuer-uri: ${KEYCLOAK_URL:http://localhost:9595}/auth/realms/warehouse_realm
+#    security:
+#        oauth2:
+#            resourceserver:
+#                jwt:
+#                    issuer-uri: ${KEYCLOAK_URL:http://localhost:9595}/auth/realms/warehouse_realm
     profiles:
         active: default
     boot:
@@ -55,4 +55,6 @@ management:
         health:
             show-details: always
         info:
+            enabled: true
+        env:
             enabled: true

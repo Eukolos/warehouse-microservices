@@ -36,6 +36,8 @@ management:
       show-details: always
     info:
       enabled: true
+    env:
+      enabled: true
 
 kafka:
   host: localhost:9092

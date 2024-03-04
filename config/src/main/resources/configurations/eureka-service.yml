@@ -17,8 +17,16 @@ management:
             base-path: /actuator-${spring.application.name}
             exposure:
                 include: '*'
+            endpoint:
+                health:
+                    show-details: always
+                info:
+                    enabled: true
+                env:
+                    enabled: true
     endpoint:
         health:
             show-details: always
         info:
             enabled: true
+

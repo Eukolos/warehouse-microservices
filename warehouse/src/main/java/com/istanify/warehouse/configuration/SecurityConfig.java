@@ -1,4 +1,4 @@
-//package com.istanify.product.configuration;
+//package com.istanify.warehouse.configuration;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.security.authorization.AuthorityAuthorizationManager;
