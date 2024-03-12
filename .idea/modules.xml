@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/accounting/accounting.iml" filepath="$PROJECT_DIR$/accounting/accounting.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/warehouse-microservices.iml" filepath="$PROJECT_DIR$/.idea/warehouse-microservices.iml" />
     </modules>
   </component>
 </project>

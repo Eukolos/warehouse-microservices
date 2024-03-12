@@ -8,4 +8,5 @@ spring:
     application:
         name: eureka-service
     config:
-        import: optional:configserver:http://localhost:9797
+        import: optional:configserver:http://config-server:9797
+

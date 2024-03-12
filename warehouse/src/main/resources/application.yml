@@ -1,8 +1,9 @@
+
 spring:
     application:
         name: warehouse-service
     config:
-        import: optional:configserver:http://localhost:9797
+        import: optional:configserver:http://config-server:9797
 #
 #    datasource:
 #        driver-class-name: org.postgresql.Driver

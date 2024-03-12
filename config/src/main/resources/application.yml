@@ -1,0 +1,19 @@
+management:
+    endpoint:
+        health:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+server:
+    port: 9797
+spring:
+    application:
+        name: config-server
+    cloud:
+        config:
+            server:
+                default-label: main
+                git:
+                    uri: https://github.com/Eukolos/config-server

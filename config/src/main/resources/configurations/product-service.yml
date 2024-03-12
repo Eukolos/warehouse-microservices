@@ -1,10 +1,4 @@
-eureka:
-  client:
-    service-url:
-      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    instance-id: '${spring.application.name}:${random.value}  '
-    prefer-ip-address: true
+
 server:
   port: 8013
 spring:
@@ -21,17 +15,17 @@ spring:
       host: mongo
       password: admin
       port: 27017
-      uri: mongodb://admin:admin@localhost:27017/?authSource=admin
+      uri: mongodb://admin:admin@mongo:27017/?authSource=admin
       username: admin
   application:
     name: product-service
   profiles:
     active: default
-  boot:
-    admin:
-      client:
-        instance:
-        url: http://localhost:9889
+#  boot:
+#    admin:
+#      client:
+#        instance:
+#        url: http://192.168.1.113:9889
 management:
   security:
     enabled: false
@@ -47,3 +41,10 @@ management:
       enabled: true
     env:
       enabled: true
+eureka:
+  client:
+    registerWithEureka: true
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    instance-id: '${spring.application.name}:${random.value}'

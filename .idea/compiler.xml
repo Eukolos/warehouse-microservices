@@ -11,19 +11,23 @@
         <module name="product" />
         <module name="eureka" />
         <module name="accounting" />
-        <module name="warehouse" />
         <module name="stock" />
+        <module name="warehouse" />
         <module name="config" />
         <module name="finance" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="accounting" options="-parameters" />
       <module name="admin-panel" options="-parameters" />
       <module name="config" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="finance" options="-parameters" />
       <module name="gateway" options="-parameters" />

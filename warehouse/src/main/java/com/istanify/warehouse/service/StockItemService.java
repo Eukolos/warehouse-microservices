@@ -1,8 +1,6 @@
 package com.istanify.warehouse.service;
 
 import com.istanify.warehouse.client.ProductClient;
-import com.istanify.warehouse.configuration.kafka.producer.KafkaProducer;
-import com.istanify.warehouse.configuration.kafka.properties.WaybillRecordTopicProperties;
 import com.istanify.warehouse.dto.ProductDto;
 import com.istanify.warehouse.dto.StockItemInfoDto;
 import com.istanify.warehouse.model.StockItem;
@@ -15,13 +13,13 @@ import java.util.List;
 
 @Service
 public class StockItemService {
-    private final StockItemRepository repository;
     private final ProductClient productClient;
+    private final StockItemRepository repository;
 
 
-    public StockItemService(StockItemRepository repository, ProductClient productClient) {
-        this.repository = repository;
+    public StockItemService(ProductClient productClient, StockItemRepository repository ) {
         this.productClient = productClient;
+        this.repository = repository;
     }
 
     public List<StockItem> getAllStockItems() {

@@ -57,7 +57,7 @@ spring:
           gateway:
             provider: my-provider
             client-id: warehouse_client
-            client-secret: hcCx0mynBHTzdnd3nrrdO2yiKe5ruUId
+            client-secret: b5GRFKL4gzha7adQmQNzFAe9RWWLBl7h
             authorization-grant-type: authorization_code
             redirect-uri: "http://localhost:8080/login/oauth2/code/{registrationId}"
             scope: openid, warehouse.read

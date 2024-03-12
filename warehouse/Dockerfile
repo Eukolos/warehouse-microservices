@@ -6,5 +6,5 @@ RUN mvn clean package -DskipTests
 
 # Faz 2: JAR dosyasını çalıştıran imaj
 FROM openjdk:17-jdk
-COPY --from=build /app/target/stock-0.0.1-SNAPSHOT.jar /app/stock.jar
-ENTRYPOINT ["java", "-jar", "/app/stock.jar"]
+COPY --from=build /app/target/warehouse-0.0.1-SNAPSHOT.jar /app/warehouse.jar
+ENTRYPOINT ["java", "-jar", "/app/warehouse.jar"]

@@ -1,8 +1,9 @@
+
 spring:
   application:
     name: product-service
   config:
-    import: optional:configserver:http://localhost:9797
+    import: optional:configserver:http://config-server:9797
 #  data:
 #    mongodb:
 #      database: product

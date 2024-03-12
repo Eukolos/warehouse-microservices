@@ -1,40 +1,54 @@
 version: "3.9"
 
 services:
-  product-service:
-    image: docker.io/library/product:0.0.1-SNAPSHOT
-    ports:
-      - "9595:8080"
-  postgres:
-    image: postgres:12
-    container_name: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - POSTGRES_HOST_AUTH_METHOD= trust
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-  pg-admin:
-    image: dpage/pgadmin4:latest
-    container_name: pg-admin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@email.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-      - PGADMIN_LISTEN_PORT=5050
 
+  eureka-service:
+    container_name: eureka-service
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
     ports:
-      - "5050:5050"
+      - "8761:8761"
+    networks:
+      - warehouse-network
+    depends_on:
+      - config-server
+
+  config-server:
+    container_name: config-server
+    build:
+      context: ./config
+      dockerfile: Dockerfile
+    ports:
+      - "9797:9797"
+    networks:
+      - warehouse-network
+
+
+
+  product-service:
+    container_name: product-service
+    build:
+      context: ./product
+      dockerfile: Dockerfile
+    ports:
+      - "8013:8013"
+    networks:
+      - warehouse-network
+      - product-network
+    depends_on:
+      - eureka-service
+      - config-server
+      - mongo
   mongo:
     image: mongo
+    container_name: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-    ports:
-      - "27017:27017"
+    networks:
+      - product-network
   mongo-express:
     image: mongo-express
     restart: always
@@ -49,21 +63,65 @@ services:
       ME_CONFIG_MONGODB_URL: mongo://admin:admin@mongo:27017/
     depends_on:
       - mongo
-  mysql:
-    image: mysql:latest
-    container_name: mysql
+    networks:
+      - product-network
+
+  warehouse-service:
+    container_name: warehouse-service
+    build:
+      context: ./warehouse
+      dockerfile: Dockerfile
+    ports:
+      - "8015:8015"
+    networks:
+      - warehouse-network
+    depends_on:
+      - eureka-service
+      - config-server
+      - kafka
+      - zookeeper
+
+  stock-service:
+    container_name: stock-service
+    build:
+      context: ./stock
+      dockerfile: Dockerfile
+    ports:
+      - "8014:8014"
+    networks:
+      - warehouse-network
+      - stock-network
+    depends_on:
+      - eureka-service
+      - config-server
+
+
+  postgres:
+    image: postgres:12
+    container_name: postgres
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: stock
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST_AUTH_METHOD= trust
     ports:
-      - "3306:3306"
-  adminer:
-    image: adminer
-    restart: always
+      - "5432:5432"
+    networks:
+      - warehouse-network
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/init.sql
+  pg-admin:
+    image: dpage/pgadmin4:latest
+    container_name: pg-admin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    networks:
+      - warehouse-network
     ports:
-      - "8082:8080"
+      - "5050:5050"
+
   zookeeper:
     image: "docker.io/bitnami/zookeeper:3"
     ports:
@@ -72,7 +130,10 @@ services:
       - "zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      warehouse-network:
   kafka:
+    container_name: kafka
     image: "docker.io/bitnami/kafka:2-debian-10"
     ports:
       - "9092:9092"
@@ -83,13 +144,15 @@ services:
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://kafka:9092
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      - KAFKA_LISTENERS=INSIDE://kafka:9093,OUTSIDE://kafka:9092
       - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
     depends_on:
       - zookeeper
+    networks:
+      warehouse-network:
   kafka-ui:
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
@@ -102,6 +165,8 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9093
       - KAFKA_CLUSTERS_0_ZOOKEEPER=localhost:2181
+    networks:
+      warehouse-network:
   keycloak:
     image: quay.io/keycloak/keycloak:legacy
     environment:
@@ -117,12 +182,18 @@ services:
       - "9595:8080"
     depends_on:
       - postgres
-
+    networks:
+      warehouse-network:
 volumes:
   zookeeper_data:
     driver: local
   kafka_data:
     driver: local
+
 networks:
-    default:
-        name: warehouse-network
+    warehouse-network:
+      driver: bridge
+    product-network:
+      driver: bridge
+    stock-network:
+      driver: bridge

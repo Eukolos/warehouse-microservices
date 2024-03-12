@@ -2,8 +2,9 @@ spring:
   application:
     name: stock-service
   config:
-    import: optional:configserver:http://localhost:9797
-#
+    import: optional:configserver:http://config-server:9797
+
+
 #  jpa:
 #    hibernate:
 #      ddl-auto: create
